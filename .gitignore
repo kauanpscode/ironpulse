@@ -1,0 +1,7 @@
+node_modules/
+.expo/
+.expo-home/
+.web-build-check/
+dist/
+web-build/
+*.log

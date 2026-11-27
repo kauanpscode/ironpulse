@@ -195,7 +195,7 @@ export function RegisterScreen(): React.JSX.Element {
               <View style={styles.switchTextWrap}>
                 <Text style={styles.switchTitle}>Incluir ficha padrão</Text>
                 <Text style={styles.switchSub}>
-                  Cria o treino Upper / Lower 2x — Powerbuilding na sua conta
+                  Cria as fichas padrão (Upper/Lower Powerbuilding e Inferior/Push/Pull) na sua conta
                 </Text>
               </View>
               <Switch

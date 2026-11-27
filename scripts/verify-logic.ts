@@ -144,6 +144,10 @@ function runTests(): void {
     'Lower A (Foco Quadríceps)',
     'Upper B (Costas, Ombros & Hipertrofia)',
     'Lower B (Foco Posteriores)',
+    'Inferior 1 (Quadríceps e Glúteos)',
+    'Push — Empurrar (Peito, Ombros e Tríceps)',
+    'Inferior 2 (Posteriores e Glúteos)',
+    'Pull — Puxar (Costas, Deltoide Posterior e Bíceps)',
   ]) {
     assert.ok(seedSource.includes(requiredDay), `Missing default routine day: ${requiredDay}`);
   }

@@ -321,4 +321,26 @@ export async function ensureSchemaMigrations(db: AppDatabase): Promise<void> {
       [ts]
     );
   }
+
+  // Migration v6: ensure BOTH standard routines (Upper / Lower 2x — Powerbuilding + Inferior / Push / Pull — 4x) exist for every user without touching their active routine or history
+  const migratedV6 = await db.getFirstAsync<{ value: string }>(
+    `SELECT value FROM schema_meta WHERE key = 'default_routine_v6'`
+  );
+
+  if (!migratedV6 && (alreadySeeded || hasExistingRoutines)) {
+    const { ensurePrepopulatedExercises, ensureStarterRoutinesForUser } = await import('./seed');
+
+    await ensurePrepopulatedExercises(db);
+    const ts = nowIso();
+
+    const allUsers = await db.getAllAsync<{ id: string }>(`SELECT id FROM users`);
+    for (const u of allUsers) {
+      await ensureStarterRoutinesForUser(db, u.id);
+    }
+
+    await db.runAsync(
+      `INSERT OR REPLACE INTO schema_meta (key, value) VALUES ('default_routine_v6', ?)`,
+      [ts]
+    );
+  }
 }

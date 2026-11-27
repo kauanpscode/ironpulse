@@ -118,6 +118,15 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Peito apoiado poupa a lombar para o Stiff de sexta. Retração escapular completa.',
   },
   {
+    key: 'articulated_or_barbell_row',
+    name: 'Remada Articulada ou Curvada (Pegada Aberta)',
+    muscleGroup: 'Costas',
+    secondaryMuscles: ['Bíceps', 'Ombros'],
+    equipment: 'Máquina',
+    defaultWeightMode: 'total',
+    notes: 'Foco em parte superior das costas e retração escapular.',
+  },
+  {
     key: 'barbell_row',
     name: 'Remada Curvada Pronada',
     muscleGroup: 'Costas',
@@ -190,6 +199,15 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     equipment: 'Halter',
     defaultWeightMode: 'per_side',
     notes: '8–10 reps cada lado. Tronco mais ereto para priorizar quadríceps.',
+  },
+  {
+    key: 'bulgarian_split_squat',
+    name: 'Búlgaro ou Afundo com Halteres',
+    muscleGroup: 'Quadríceps',
+    secondaryMuscles: ['Posteriores'],
+    equipment: 'Halter',
+    defaultWeightMode: 'per_side',
+    notes: '10 reps cada lado. Peso registrado por halter (calculado ×2 automaticamente).',
   },
   {
     key: 'hip_adduction',
@@ -295,6 +313,15 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Puxar na linha do rosto finalizando com rotação externa para ativar manguito e deltoide posterior.',
   },
   {
+    key: 'reverse_fly_or_face_pull',
+    name: 'Crucifixo Inverso (Máquina/Polia) ou Face Pull',
+    muscleGroup: 'Ombros',
+    secondaryMuscles: ['Costas'],
+    equipment: 'Polia',
+    defaultWeightMode: 'total',
+    notes: 'Foco em deltoide posterior e rotação externa controlada.',
+  },
+  {
     key: 'lateral_raise_cable',
     name: 'Elevação Lateral na Polia',
     muscleGroup: 'Ombros',
@@ -349,6 +376,15 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     equipment: 'Halter',
     defaultWeightMode: 'per_side',
     notes: 'Cotovelos fixos ao lado do tronco, supinação completa no topo.',
+  },
+  {
+    key: 'hammer_or_incline_curl',
+    name: 'Rosca Martelo ou Inclinada com Halteres',
+    muscleGroup: 'Bíceps',
+    secondaryMuscles: [],
+    equipment: 'Halter',
+    defaultWeightMode: 'per_side',
+    notes: 'Alternar ou escolher entre pegada neutra (martelo) ou banco a 45°.',
   },
   {
     key: 'barbell_curl',
@@ -453,7 +489,25 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     secondaryMuscles: [],
     equipment: 'Peso Corporal',
     defaultWeightMode: 'total',
-    notes: 'Isometria: 2 séries frontal + 2 séries lateral. Registrar segundos no campo de reps.',
+    notes: 'Isometria: 2 séries frontal (com retroversão pélvica) + 2 séries lateral. Registrar segundos no campo de reps.',
+  },
+  {
+    key: 'plank_abdominal',
+    name: 'Prancha Abdominal',
+    muscleGroup: 'Abdômen',
+    secondaryMuscles: [],
+    equipment: 'Peso Corporal',
+    defaultWeightMode: 'total',
+    notes: 'Isometria: registrar o tempo (45–60 seg) no campo de reps.',
+  },
+  {
+    key: 'cable_or_infra_abs',
+    name: 'Abdominal na Polia ou Infra',
+    muscleGroup: 'Abdômen',
+    secondaryMuscles: [],
+    equipment: 'Polia',
+    defaultWeightMode: 'total',
+    notes: 'Flexionar a coluna torácica (polia) ou elevar a pelve (infra).',
   },
 ] as const;
 
@@ -482,6 +536,7 @@ interface RoutineBlueprint {
 }
 
 export const ROUTINE_BLUEPRINTS: readonly RoutineBlueprint[] = [
+  // 1. SEU TREINO DE POWERBUILDING (ATIVO)
   {
     key: 'upper_lower_powerbuilding_4x',
     name: 'Upper / Lower 2x — Powerbuilding',
@@ -736,6 +791,398 @@ export const ROUTINE_BLUEPRINTS: readonly RoutineBlueprint[] = [
       },
     ],
   },
+
+  // 2. SEU TREINO DE HIPERTROFIA PURA
+  {
+    key: 'upper_lower_hypertrophy_4x',
+    name: 'Upper / Lower 2x — Hipertrofia Pura',
+    splitType: 'Upper/Lower',
+    description:
+      'Divisão 4x focada em hipertrofia pura (faixa de 8 a 15 repetições, descansos de 60–90s e foco em tensão muscular contínua com menor desgaste articular). Ideal para alternar após um bloco de Powerbuilding.',
+    isActive: false,
+    days: [
+      {
+        key: 'hypertrophy_upper_a',
+        name: 'Upper A — Hipertrofia (Peito, Costas e Braços)',
+        focusMuscles: ['Peito', 'Costas', 'Ombros', 'Bíceps', 'Tríceps'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'incline_articulated_press',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 1A (alternar com Puxada). 1 série leve antes; excêntrica controlada.',
+          },
+          {
+            exerciseKey: 'lat_pulldown',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 1B (alternar com Supino Inclinado).',
+          },
+          {
+            exerciseKey: 'flat_db_press',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 2A (alternar com Remada Baixa).',
+          },
+          {
+            exerciseKey: 'seated_cable_row',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 2B (alternar com Supino Reto). Segurar 1s na contração.',
+          },
+          {
+            exerciseKey: 'lateral_raise_db',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+          },
+          {
+            exerciseKey: 'triceps_overhead_cable',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 4A (alternar com Rosca Scott).',
+          },
+          {
+            exerciseKey: 'scott_barbell_curl',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 4B (alternar com Tríceps Francês).',
+          },
+        ],
+      },
+      {
+        key: 'hypertrophy_lower_a',
+        name: 'Lower A — Hipertrofia (Quadríceps e Core)',
+        focusMuscles: ['Quadríceps', 'Posteriores', 'Panturrilhas', 'Abdômen'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'hack_squat',
+            targetSets: 4,
+            repMin: 8,
+            repMax: 12,
+            restSeconds: 90,
+            notes: '1 série leve antes. Controle total na descida.',
+          },
+          {
+            exerciseKey: 'leg_press_45',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 90,
+          },
+          {
+            exerciseKey: 'seated_leg_curl',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 15,
+            restSeconds: 60,
+          },
+          {
+            exerciseKey: 'leg_extension',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Reclinar o encosto (~40°) para maior estímulo do reto femoral.',
+          },
+          {
+            exerciseKey: 'hack_calf_raise',
+            targetSets: 4,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Pausa de 1–2s no alongamento embaixo.',
+          },
+          {
+            exerciseKey: 'cable_crunch',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+          },
+        ],
+      },
+      {
+        key: 'hypertrophy_upper_b',
+        name: 'Upper B — Hipertrofia (Costas, Ombros e Braços)',
+        focusMuscles: ['Costas', 'Peito', 'Ombros', 'Bíceps', 'Tríceps'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'articulated_row',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 1A (alternar com Desenvolvimento). 1 série leve antes.',
+          },
+          {
+            exerciseKey: 'db_shoulder_press',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 1B (alternar com Remada Articulada).',
+          },
+          {
+            exerciseKey: 'pec_deck',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 2A (alternar com Serrote).',
+          },
+          {
+            exerciseKey: 'db_one_arm_row',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 2B (alternar com Peck Deck).',
+          },
+          {
+            exerciseKey: 'face_pull_cable',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 3A (alternar com Elevação Lateral). Finalizar com rotação externa.',
+          },
+          {
+            exerciseKey: 'lateral_raise_db',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 3B (alternar com Face Pull).',
+          },
+          {
+            exerciseKey: 'triceps_skullcrusher_cable',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 4A (alternar com Rosca Martelo na Polia).',
+          },
+          {
+            exerciseKey: 'hammer_cable_curl',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 4B (alternar com Tríceps Testa no Cross).',
+          },
+        ],
+      },
+      {
+        key: 'hypertrophy_lower_b',
+        name: 'Lower B — Hipertrofia (Posteriores e Adutores)',
+        focusMuscles: ['Posteriores', 'Quadríceps', 'Panturrilhas', 'Abdômen'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'stiff_barbell',
+            targetSets: 4,
+            repMin: 8,
+            repMax: 12,
+            restSeconds: 90,
+            notes: '1 série leve antes. Foco no alongamento controlado.',
+          },
+          {
+            exerciseKey: 'db_lunge',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 75,
+            notes: '10–12 reps cada lado (foco em quadríceps).',
+          },
+          {
+            exerciseKey: 'lying_leg_curl',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+          },
+          {
+            exerciseKey: 'hip_adduction',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+          },
+          {
+            exerciseKey: 'standing_or_leg_calf_raise',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Joelho estendido; pausa no alongamento.',
+          },
+          {
+            exerciseKey: 'leg_raise_or_side_plank',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: '12–15 reps (Infra) ou 45s na Prancha Lateral.',
+          },
+        ],
+      },
+    ],
+  },
+
+  // 3. TREINO DA SUA ESPOSA (VERSÃO OTIMIZADA V4)
+  {
+    key: 'lower_push_lower_pull_4x',
+    name: 'Inferior / Push / Pull — 4x',
+    splitType: 'Upper/Lower',
+    description:
+      'Divisão 4x otimizada (Seg: Inferior 2 | Ter: Push | Qua: OFF | Qui: Inferior 1 | Sex: Pull) para evitar conflito lombar entre Stiff e Costas. Mesociclos de 6 a 8 semanas (24–32 treinos) com 1 semana de deload ativo.',
+    isActive: false,
+    days: [
+      {
+        key: 'inferior_2',
+        name: 'Inferior 2 (Posteriores e Glúteos)',
+        focusMuscles: ['Posteriores', 'Quadríceps', 'Panturrilhas'],
+        estimatedMinutes: 50,
+        exercises: [
+          { exerciseKey: 'hip_thrust', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
+          { exerciseKey: 'stiff_barbell', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 90 },
+          {
+            exerciseKey: 'bulgarian_split_squat',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 10,
+            restSeconds: 90,
+            notes: '10 reps cada lado',
+          },
+          { exerciseKey: 'seated_leg_curl', targetSets: 3, repMin: 12, repMax: 15, restSeconds: 60 },
+          {
+            exerciseKey: 'hip_abduction',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Descanso sugerido: 45–60 seg',
+          },
+          {
+            exerciseKey: 'standing_or_leg_calf_raise',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Descanso sugerido: 45–60 seg (joelho estendido)',
+          },
+        ],
+      },
+      {
+        key: 'push',
+        name: 'Push — Empurrar (Peito, Ombros e Tríceps)',
+        focusMuscles: ['Peito', 'Ombros', 'Tríceps'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'incline_db_press',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 10,
+            restSeconds: 120,
+            notes: 'Aquecimento prévio: 2x15 leves de rotação externa na polia/elástico (manguito).',
+          },
+          { exerciseKey: 'pec_deck', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 90 },
+          { exerciseKey: 'db_shoulder_press', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 90 },
+          { exerciseKey: 'lateral_raise_db', targetSets: 4, repMin: 12, repMax: 15, restSeconds: 60 },
+          { exerciseKey: 'triceps_overhead_cable', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 60 },
+          { exerciseKey: 'triceps_rope', targetSets: 2, repMin: 10, repMax: 12, restSeconds: 60 },
+        ],
+      },
+      {
+        key: 'inferior_1',
+        name: 'Inferior 1 (Quadríceps, Adutores e Core)',
+        focusMuscles: ['Quadríceps', 'Posteriores', 'Panturrilhas', 'Abdômen'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'hack_squat',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 10,
+            restSeconds: 120,
+            notes: 'Alternativa equivalente: Leg Press 45°',
+          },
+          { exerciseKey: 'hip_adduction', targetSets: 3, repMin: 12, repMax: 15, restSeconds: 60 },
+          {
+            exerciseKey: 'leg_extension',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Reclinar o encosto (~40°) para maior estímulo do reto femoral.',
+          },
+          {
+            exerciseKey: 'lying_leg_curl',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 75,
+            notes: 'Descanso sugerido: 60–90 seg',
+          },
+          {
+            exerciseKey: 'hack_calf_raise',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Descanso sugerido: 45–60 seg',
+          },
+          {
+            exerciseKey: 'plank_frontal_lateral',
+            targetSets: 4,
+            repMin: 40,
+            repMax: 60,
+            restSeconds: 45,
+            notes: '2 séries frontal + 2 séries lateral (40–60 seg cada)',
+          },
+        ],
+      },
+      {
+        key: 'pull',
+        name: 'Pull — Puxar (Costas, Ombro Posterior e Bíceps)',
+        focusMuscles: ['Costas', 'Ombros', 'Bíceps'],
+        estimatedMinutes: 50,
+        exercises: [
+          { exerciseKey: 'lat_pulldown', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
+          { exerciseKey: 'articulated_or_barbell_row', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
+          { exerciseKey: 'seated_cable_row', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 90 },
+          {
+            exerciseKey: 'face_pull_cable',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Finalizar puxada com rotação externa dos ombros.',
+          },
+          { exerciseKey: 'incline_db_curl', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 60 },
+          { exerciseKey: 'hammer_db_curl', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 60 },
+        ],
+      },
+    ],
+  },
 ];
 
 interface SeedSetSpec {
@@ -746,7 +1193,7 @@ interface SeedSetSpec {
 }
 
 /**
- * Generates realistic 4-week set progressions for the Upper/Lower 2x routine:
+ * Generates realistic 4-week set progressions for the active Upper/Lower 2x Powerbuilding routine:
  * - incline_articulated_press: hits ceiling (3x8 at 17.5kg/lado) in Week 4 -> Progression Signal!
  * - scott_barbell_curl: intentional 4-week plateau (20kg x 9,8,8) -> Plateau Alert!
  * - hack_squat, stiff_barbell, lat_pulldown, barbell_row: steady progressive overload.
@@ -1148,6 +1595,99 @@ export async function createStarterRoutinesForUser(
   });
 }
 
+export async function ensureStarterRoutinesForUser(
+  db: AppDatabase,
+  userId: string
+): Promise<void> {
+  const createdTs = nowIso();
+  const exerciseByKey = await ensurePrepopulatedExercises(db);
+  const hasAnyActive = await db.getFirstAsync<{ id: string }>(
+    `SELECT id FROM routines WHERE user_id = ? AND deleted_at IS NULL AND is_active = 1 LIMIT 1`,
+    [userId]
+  );
+
+  await db.withTransactionAsync(async () => {
+    for (const routine of ROUTINE_BLUEPRINTS) {
+      const existing = await db.getFirstAsync<{ id: string }>(
+        `SELECT id FROM routines WHERE user_id = ? AND name = ? AND deleted_at IS NULL LIMIT 1`,
+        [userId, routine.name]
+      );
+      if (existing) continue;
+
+      const routineId = generateId();
+      const shouldActivate = !hasAnyActive && routine.isActive ? 1 : 0;
+
+      await db.runAsync(
+        `INSERT INTO routines (
+          id, user_id, name, split_type, description, is_active, sync_status, created_at, updated_at, deleted_at
+        ) VALUES (?, ?, ?, ?, ?, ?, 'pending', ?, ?, NULL)`,
+        [
+          routineId,
+          userId,
+          routine.name,
+          routine.splitType,
+          routine.description,
+          shouldActivate,
+          createdTs,
+          createdTs,
+        ]
+      );
+
+      for (let dIdx = 0; dIdx < routine.days.length; dIdx += 1) {
+        const day = routine.days[dIdx];
+        if (!day) continue;
+        const dayId = generateId();
+
+        await db.runAsync(
+          `INSERT INTO routine_days (
+            id, routine_id, name, day_order, focus_muscles, estimated_minutes,
+            sync_status, created_at, updated_at, deleted_at
+          ) VALUES (?, ?, ?, ?, ?, ?, 'pending', ?, ?, NULL)`,
+          [
+            dayId,
+            routineId,
+            day.name,
+            dIdx,
+            JSON.stringify(day.focusMuscles),
+            day.estimatedMinutes,
+            createdTs,
+            createdTs,
+          ]
+        );
+
+        for (let eIdx = 0; eIdx < day.exercises.length; eIdx += 1) {
+          const rx = day.exercises[eIdx];
+          if (!rx) continue;
+          const mapped = exerciseByKey.get(rx.exerciseKey);
+          if (!mapped) continue;
+
+          await db.runAsync(
+            `INSERT INTO routine_exercises (
+              id, routine_day_id, exercise_id, order_index, target_sets,
+              rep_min, rep_max, rest_seconds, weight_mode, notes,
+              sync_status, created_at, updated_at, deleted_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', ?, ?, NULL)`,
+            [
+              generateId(),
+              dayId,
+              mapped.id,
+              eIdx,
+              rx.targetSets,
+              rx.repMin,
+              rx.repMax,
+              rx.restSeconds,
+              mapped.mode,
+              rx.notes ?? '',
+              createdTs,
+              createdTs,
+            ]
+          );
+        }
+      }
+    }
+  });
+}
+
 export async function seedDatabaseIfNeeded(db: AppDatabase): Promise<boolean> {
   await ensureDemoUserExists(db);
   const existing = await db.getFirstAsync<{ value: string }>(
@@ -1170,7 +1710,7 @@ export async function runRealisticSeed(
   const exerciseMap = await ensurePrepopulatedExercises(db);
 
   await db.withTransactionAsync(async () => {
-    // 1. Insert ONLY the default routine (Upper A / Lower A / Upper B / Lower B)
+    // 1. Insert all 3 starter routines (Powerbuilding [active], Hipertrofia Pura, Inferior/Push/Pull)
     const routineIdByKey = new Map<string, string>();
     const routineDayIdByKey = new Map<string, string>();
     const routineExerciseIdByPair = new Map<string, string>();
@@ -1251,7 +1791,7 @@ export async function runRealisticSeed(
       }
     }
 
-    // 2. Insert 4 Weeks of Realistic Workout History (16 sessions)
+    // 2. Insert 4 Weeks of Realistic Workout History (16 sessions for the active Powerbuilding routine)
     const defaultRoutine = ROUTINE_BLUEPRINTS[0];
     const activeRoutineId = defaultRoutine
       ? routineIdByKey.get(defaultRoutine.key) ?? null
@@ -1510,7 +2050,7 @@ export async function runRealisticSeed(
       [createdTs]
     );
     await db.runAsync(
-      `INSERT OR REPLACE INTO schema_meta (key, value) VALUES ('default_routine_v5', ?)`,
+      `INSERT OR REPLACE INTO schema_meta (key, value) VALUES ('default_routine_v7', ?)`,
       [createdTs]
     );
   });

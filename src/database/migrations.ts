@@ -151,4 +151,174 @@ export async function ensureSchemaMigrations(db: AppDatabase): Promise<void> {
       [ts]
     );
   }
+
+  // Migration v4: replace previous routine with optimized Inferior / Push / Pull 4x (Inferior 2 / Push / Inferior 1 / Pull)
+  const migratedV4 = await db.getFirstAsync<{ value: string }>(
+    `SELECT value FROM schema_meta WHERE key = 'default_routine_v4'`
+  );
+  const hasExistingRoutines = await db.getFirstAsync<{ id: string }>(
+    `SELECT id FROM routines LIMIT 1`
+  );
+
+  if (!migratedV4 && (alreadySeeded || hasExistingRoutines)) {
+    const {
+      createStarterRoutinesForUser,
+      ensurePrepopulatedExercises,
+      runRealisticSeed,
+    } = await import('./seed');
+
+    await ensurePrepopulatedExercises(db);
+    const ts = nowIso();
+
+    // 1. Refresh Demo User's demo sessions and routines to match the new optimized routine
+    await db.withTransactionAsync(async () => {
+      await db.runAsync(
+        `DELETE FROM workout_sets WHERE session_id IN (SELECT id FROM workout_sessions WHERE user_id = ?)`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(
+        `DELETE FROM workout_session_exercises WHERE session_id IN (SELECT id FROM workout_sessions WHERE user_id = ?)`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(`DELETE FROM workout_sessions WHERE user_id = ?`, [DEMO_USER_ID]);
+      await db.runAsync(
+        `DELETE FROM routine_exercises WHERE routine_day_id IN (SELECT id FROM routine_days WHERE routine_id IN (SELECT id FROM routines WHERE user_id = ?))`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(
+        `DELETE FROM routine_days WHERE routine_id IN (SELECT id FROM routines WHERE user_id = ?)`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(`DELETE FROM routines WHERE user_id = ?`, [DEMO_USER_ID]);
+      await db.runAsync(`DELETE FROM body_measurements WHERE user_id = ?`, [DEMO_USER_ID]);
+      await db.runAsync(`DELETE FROM cardio_sessions WHERE user_id = ?`, [DEMO_USER_ID]);
+    });
+    await runRealisticSeed(db, DEMO_USER_ID);
+
+    // 2. For other registered users:
+    // If they have an existing default routine (named 'Inferior / Push / Pull — 4x', 'Upper / Lower 4x — Hipertrofia', or 'Push / Pull / Legs (PPL)'),
+    // archive it and replace with the new optimized routine.
+    const legacyNames = [
+      'Upper / Lower 4x — Hipertrofia',
+      'Push / Pull / Legs (PPL)',
+      'Inferior / Push / Pull — 4x',
+    ];
+
+    const otherUsers = await db.getAllAsync<{ id: string }>(
+      `SELECT id FROM users WHERE id != ?`,
+      [DEMO_USER_ID]
+    );
+
+    for (const u of otherUsers) {
+      const activeOldRoutine = await db.getFirstAsync<{ id: string }>(
+        `SELECT id FROM routines WHERE user_id = ? AND deleted_at IS NULL AND name IN (?, ?, ?) LIMIT 1`,
+        [u.id, legacyNames[0]!, legacyNames[1]!, legacyNames[2]!]
+      );
+
+      if (activeOldRoutine) {
+        await db.runAsync(
+          `UPDATE routines SET deleted_at = ?, is_active = 0, updated_at = ?
+           WHERE id = ?`,
+          [ts, ts, activeOldRoutine.id]
+        );
+        await createStarterRoutinesForUser(db, u.id);
+      } else {
+        const hasActive = await db.getFirstAsync<{ id: string }>(
+          `SELECT id FROM routines WHERE user_id = ? AND deleted_at IS NULL AND is_active = 1 LIMIT 1`,
+          [u.id]
+        );
+        if (!hasActive) {
+          await createStarterRoutinesForUser(db, u.id);
+        }
+      }
+    }
+
+    await db.runAsync(
+      `INSERT OR REPLACE INTO schema_meta (key, value) VALUES ('default_routine_v4', ?)`,
+      [ts]
+    );
+  }
+
+  // Migration v5: replace previous routine with Upper / Lower 2x — Powerbuilding
+  const migratedV5 = await db.getFirstAsync<{ value: string }>(
+    `SELECT value FROM schema_meta WHERE key = 'default_routine_v5'`
+  );
+
+  if (!migratedV5 && (alreadySeeded || hasExistingRoutines)) {
+    const {
+      createStarterRoutinesForUser,
+      ensurePrepopulatedExercises,
+      runRealisticSeed,
+    } = await import('./seed');
+
+    await ensurePrepopulatedExercises(db);
+    const ts = nowIso();
+
+    // 1. Refresh Demo User's demo sessions and routines to match the new routine
+    await db.withTransactionAsync(async () => {
+      await db.runAsync(
+        `DELETE FROM workout_sets WHERE session_id IN (SELECT id FROM workout_sessions WHERE user_id = ?)`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(
+        `DELETE FROM workout_session_exercises WHERE session_id IN (SELECT id FROM workout_sessions WHERE user_id = ?)`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(`DELETE FROM workout_sessions WHERE user_id = ?`, [DEMO_USER_ID]);
+      await db.runAsync(
+        `DELETE FROM routine_exercises WHERE routine_day_id IN (SELECT id FROM routine_days WHERE routine_id IN (SELECT id FROM routines WHERE user_id = ?))`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(
+        `DELETE FROM routine_days WHERE routine_id IN (SELECT id FROM routines WHERE user_id = ?)`,
+        [DEMO_USER_ID]
+      );
+      await db.runAsync(`DELETE FROM routines WHERE user_id = ?`, [DEMO_USER_ID]);
+      await db.runAsync(`DELETE FROM body_measurements WHERE user_id = ?`, [DEMO_USER_ID]);
+      await db.runAsync(`DELETE FROM cardio_sessions WHERE user_id = ?`, [DEMO_USER_ID]);
+    });
+    await runRealisticSeed(db, DEMO_USER_ID);
+
+    // 2. For other registered users:
+    // Soft-delete older default routines so previous workout history is preserved!
+    const legacyNames = [
+      'Upper / Lower 4x — Hipertrofia',
+      'Push / Pull / Legs (PPL)',
+      'Inferior / Push / Pull — 4x',
+    ];
+
+    const otherUsers = await db.getAllAsync<{ id: string }>(
+      `SELECT id FROM users WHERE id != ?`,
+      [DEMO_USER_ID]
+    );
+
+    for (const u of otherUsers) {
+      const activeOldRoutine = await db.getFirstAsync<{ id: string }>(
+        `SELECT id FROM routines WHERE user_id = ? AND deleted_at IS NULL AND name IN (?, ?, ?) LIMIT 1`,
+        [u.id, legacyNames[0]!, legacyNames[1]!, legacyNames[2]!]
+      );
+
+      if (activeOldRoutine) {
+        await db.runAsync(
+          `UPDATE routines SET deleted_at = ?, is_active = 0, updated_at = ?
+           WHERE id = ?`,
+          [ts, ts, activeOldRoutine.id]
+        );
+        await createStarterRoutinesForUser(db, u.id);
+      } else {
+        const hasActive = await db.getFirstAsync<{ id: string }>(
+          `SELECT id FROM routines WHERE user_id = ? AND deleted_at IS NULL AND is_active = 1 LIMIT 1`,
+          [u.id]
+        );
+        if (!hasActive) {
+          await createStarterRoutinesForUser(db, u.id);
+        }
+      }
+    }
+
+    await db.runAsync(
+      `INSERT OR REPLACE INTO schema_meta (key, value) VALUES ('default_routine_v5', ?)`,
+      [ts]
+    );
+  }
 }

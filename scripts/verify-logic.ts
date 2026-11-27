@@ -140,10 +140,10 @@ function runTests(): void {
     assert.ok(seedSource.includes(`equipment: '${eq}'`), `Missing equipment: ${eq}`);
   }
   for (const requiredDay of [
-    'Inferior 1 (Quadríceps e Glúteos)',
-    'Push — Empurrar (Peito, Ombros e Tríceps)',
-    'Inferior 2 (Posteriores e Glúteos)',
-    'Pull — Puxar (Costas, Deltoide Posterior e Bíceps)',
+    'Upper A (Força Empurrar/Puxar + Braços)',
+    'Lower A (Foco Quadríceps)',
+    'Upper B (Costas, Ombros & Hipertrofia)',
+    'Lower B (Foco Posteriores)',
   ]) {
     assert.ok(seedSource.includes(requiredDay), `Missing default routine day: ${requiredDay}`);
   }

@@ -8,6 +8,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "bundler",
     "skipLibCheck": true
   },
   "include": [

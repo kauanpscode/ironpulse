@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
 import { DarkTheme, NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,7 +19,7 @@ import {
   RoutineEditorScreen,
   RoutinesScreen,
 } from '../screens';
-import { colors, radii } from '../theme';
+import { colors } from '../theme';
 import type {
   AuthStackParamList,
   MainTabParamList,
@@ -71,7 +70,7 @@ function MainTabs(): React.JSX.Element {
           backgroundColor: '#131316',
           borderTopColor: colors.border,
           borderTopWidth: 1,
-          height: 58 + bottomPad,
+          height: 60 + bottomPad,
           paddingTop: 6,
           paddingBottom: bottomPad,
         },
@@ -83,7 +82,7 @@ function MainTabs(): React.JSX.Element {
           marginTop: 2,
         },
         tabBarIcon: ({ color, size, focused }) => {
-          let iconName: keyof typeof Ionicons.glyphMap = 'home';
+          let iconName: keyof typeof Ionicons.glyphMap = 'flame';
           if (route.name === 'Home') {
             iconName = focused ? 'flame' : 'flame-outline';
           } else if (route.name === 'Routines') {
@@ -93,11 +92,7 @@ function MainTabs(): React.JSX.Element {
           } else if (route.name === 'BodyAndCardio') {
             iconName = focused ? 'body' : 'body-outline';
           }
-          return (
-            <View style={[styles.iconPill, focused && styles.iconPillActive]}>
-              <Ionicons name={iconName} size={size - 1} color={color} />
-            </View>
-          );
+          return <Ionicons name={iconName} size={size} color={color} />;
         },
       })}
     >
@@ -187,14 +182,3 @@ export function AppNavigator(): React.JSX.Element {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  iconPill: {
-    paddingHorizontal: 14,
-    paddingVertical: 3,
-    borderRadius: radii.pill,
-  },
-  iconPillActive: {
-    backgroundColor: colors.primaryMuted,
-  },
-});

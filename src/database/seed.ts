@@ -35,6 +35,24 @@ interface SeedExerciseDef {
 export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
   // PEITO
   {
+    key: 'incline_articulated_press',
+    name: 'Supino Inclinado Articulado',
+    muscleGroup: 'Peito',
+    secondaryMuscles: ['Ombros', 'Tríceps'],
+    equipment: 'Máquina',
+    defaultWeightMode: 'per_side',
+    notes: 'Peso por lado. 1 série leve de aquecimento (8 reps) antes das séries válidas.',
+  },
+  {
+    key: 'flat_db_press',
+    name: 'Supino Reto com Halteres',
+    muscleGroup: 'Peito',
+    secondaryMuscles: ['Tríceps', 'Ombros'],
+    equipment: 'Halter',
+    defaultWeightMode: 'per_side',
+    notes: 'Amplitude completa mantendo escápulas retraídas.',
+  },
+  {
     key: 'incline_db_press',
     name: 'Supino Inclinado com Halteres',
     muscleGroup: 'Peito',
@@ -50,7 +68,7 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     secondaryMuscles: ['Ombros'],
     equipment: 'Máquina',
     defaultWeightMode: 'total',
-    notes: 'Alongamento máximo sem perder tensão nos ombros.',
+    notes: 'Alongamento máximo sem perder tensão nos ombros. 1s de contração no fechamento.',
   },
   {
     key: 'bench_barbell',
@@ -83,7 +101,7 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
   // COSTAS
   {
     key: 'lat_pulldown',
-    name: 'Puxada Alta (Pegada Aberta ou Neutra)',
+    name: 'Puxada Frente (Aberta ou Neutra)',
     muscleGroup: 'Costas',
     secondaryMuscles: ['Bíceps'],
     equipment: 'Polia',
@@ -91,13 +109,22 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Deprimir escápulas antes de flexionar os cotovelos.',
   },
   {
-    key: 'articulated_or_barbell_row',
-    name: 'Remada Articulada ou Curvada (Pegada Aberta)',
+    key: 'articulated_row',
+    name: 'Remada Articulada Apoiada',
     muscleGroup: 'Costas',
     secondaryMuscles: ['Bíceps', 'Ombros'],
     equipment: 'Máquina',
+    defaultWeightMode: 'per_side',
+    notes: 'Peito apoiado poupa a lombar para o Stiff de sexta. Retração escapular completa.',
+  },
+  {
+    key: 'barbell_row',
+    name: 'Remada Curvada Pronada',
+    muscleGroup: 'Costas',
+    secondaryMuscles: ['Bíceps', 'Ombros'],
+    equipment: 'Barra',
     defaultWeightMode: 'total',
-    notes: 'Foco em parte superior das costas e retração escapular.',
+    notes: 'Tronco estável a ~45°, puxar em direção ao umbigo.',
   },
   {
     key: 'seated_cable_row',
@@ -109,22 +136,13 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Pegada neutra no triângulo, segurar 1s no final da puxada.',
   },
   {
-    key: 'barbell_row',
-    name: 'Remada Curvada com Barra',
-    muscleGroup: 'Costas',
-    secondaryMuscles: ['Bíceps'],
-    equipment: 'Barra',
-    defaultWeightMode: 'total',
-    notes: 'Tronco estável a ~45°, puxar em direção ao umbigo.',
-  },
-  {
     key: 'db_one_arm_row',
-    name: 'Remada Unilateral com Halter',
+    name: 'Remada Unilateral Serrote',
     muscleGroup: 'Costas',
     secondaryMuscles: ['Bíceps'],
     equipment: 'Halter',
     defaultWeightMode: 'per_side',
-    notes: 'Puxar cotovelo em direção ao quadril.',
+    notes: 'Puxar o cotovelo em arco em direção ao quadril.',
   },
   {
     key: 'pull_up',
@@ -136,7 +154,7 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Amplitude completa até queixo acima da barra.',
   },
 
-  // QUADRÍCEPS
+  // QUADRÍCEPS & ADUTORES
   {
     key: 'hack_squat',
     name: 'Agachamento no Hack',
@@ -162,16 +180,25 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     secondaryMuscles: [],
     equipment: 'Máquina',
     defaultWeightMode: 'total',
-    notes: 'Segurar 1s no topo com contração máxima.',
+    notes: 'Reclinar o encosto (~40°) para maior estímulo do reto femoral. Segurar 1s no topo.',
   },
   {
-    key: 'bulgarian_split_squat',
-    name: 'Búlgaro ou Afundo com Halteres',
+    key: 'db_lunge',
+    name: 'Afundo com Halteres',
     muscleGroup: 'Quadríceps',
     secondaryMuscles: ['Posteriores'],
     equipment: 'Halter',
     defaultWeightMode: 'per_side',
-    notes: '10 reps cada lado. Peso registrado por halter (calculado ×2 automaticamente).',
+    notes: '8–10 reps cada lado. Tronco mais ereto para priorizar quadríceps.',
+  },
+  {
+    key: 'hip_adduction',
+    name: 'Cadeira Adutora',
+    muscleGroup: 'Quadríceps',
+    secondaryMuscles: ['Posteriores'],
+    equipment: 'Máquina',
+    defaultWeightMode: 'total',
+    notes: 'Foco em adutores longo, curto e grácil; controlar a fase excêntrica.',
   },
   {
     key: 'back_squat',
@@ -185,15 +212,6 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
 
   // POSTERIORES & GLÚTEOS
   {
-    key: 'hip_thrust',
-    name: 'Elevação Pélvica (Barra ou Máquina)',
-    muscleGroup: 'Posteriores',
-    secondaryMuscles: ['Quadríceps'],
-    equipment: 'Barra',
-    defaultWeightMode: 'total',
-    notes: 'Pausa de 1s no pico de extensão com retroversão pélvica.',
-  },
-  {
     key: 'stiff_barbell',
     name: 'Stiff com Barra',
     muscleGroup: 'Posteriores',
@@ -201,6 +219,15 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     equipment: 'Barra',
     defaultWeightMode: 'total',
     notes: 'Quadril para trás, barra rente às pernas, coluna neutra.',
+  },
+  {
+    key: 'seated_leg_curl',
+    name: 'Cadeira Flexora',
+    muscleGroup: 'Posteriores',
+    secondaryMuscles: [],
+    equipment: 'Máquina',
+    defaultWeightMode: 'total',
+    notes: 'Excelente hipertrofia em alongamento; descer devagar.',
   },
   {
     key: 'lying_leg_curl',
@@ -212,13 +239,13 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Manter quadril pressionado no banco durante toda a série.',
   },
   {
-    key: 'seated_leg_curl',
-    name: 'Cadeira Flexora',
+    key: 'hip_thrust',
+    name: 'Elevação Pélvica (Barra ou Máquina)',
     muscleGroup: 'Posteriores',
-    secondaryMuscles: [],
-    equipment: 'Máquina',
+    secondaryMuscles: ['Quadríceps'],
+    equipment: 'Barra',
     defaultWeightMode: 'total',
-    notes: 'Excelente hipertrofia em alongamento; descer devagar.',
+    notes: 'Pausa de 1s no pico de extensão com retroversão pélvica.',
   },
   {
     key: 'hip_abduction',
@@ -247,7 +274,7 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     secondaryMuscles: ['Tríceps'],
     equipment: 'Halter',
     defaultWeightMode: 'per_side',
-    notes: 'Cotovelos levemente à frente do plano escapular.',
+    notes: 'Cotovelos levemente à frente do plano escapular (~30°).',
   },
   {
     key: 'lateral_raise_db',
@@ -259,13 +286,13 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Elevar até a linha dos ombros sem balanço excessivo.',
   },
   {
-    key: 'reverse_fly_or_face_pull',
-    name: 'Crucifixo Inverso (Máquina/Polia) ou Face Pull',
+    key: 'face_pull_cable',
+    name: 'Face Pull na Polia',
     muscleGroup: 'Ombros',
     secondaryMuscles: ['Costas'],
     equipment: 'Polia',
     defaultWeightMode: 'total',
-    notes: 'Foco em deltoide posterior e rotação externa controlada.',
+    notes: 'Puxar na linha do rosto finalizando com rotação externa para ativar manguito e deltoide posterior.',
   },
   {
     key: 'lateral_raise_cable',
@@ -279,6 +306,42 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
 
   // BÍCEPS
   {
+    key: 'scott_barbell_curl',
+    name: 'Rosca Scott (Barra W)',
+    muscleGroup: 'Bíceps',
+    secondaryMuscles: [],
+    equipment: 'Barra',
+    defaultWeightMode: 'total',
+    notes: 'Descida controlada (2–3s) sem impulso no fundo do movimento.',
+  },
+  {
+    key: 'hammer_cable_curl',
+    name: 'Rosca Martelo na Polia (Corda)',
+    muscleGroup: 'Bíceps',
+    secondaryMuscles: [],
+    equipment: 'Polia',
+    defaultWeightMode: 'total',
+    notes: 'Pegada neutra na corda com tensão constante; foco em braquial e braquiorradial (antebraço).',
+  },
+  {
+    key: 'incline_db_curl',
+    name: 'Rosca Inclinada com Halteres',
+    muscleGroup: 'Bíceps',
+    secondaryMuscles: [],
+    equipment: 'Halter',
+    defaultWeightMode: 'per_side',
+    notes: 'Banco a ~45° para enfatizar a cabeça longa do bíceps em posição alongada.',
+  },
+  {
+    key: 'hammer_db_curl',
+    name: 'Rosca Martelo com Halteres',
+    muscleGroup: 'Bíceps',
+    secondaryMuscles: [],
+    equipment: 'Halter',
+    defaultWeightMode: 'per_side',
+    notes: 'Pegada neutra com foco em braquial e braquiorradial (antebraço).',
+  },
+  {
     key: 'db_bicep_curl',
     name: 'Rosca Direta com Halteres',
     muscleGroup: 'Bíceps',
@@ -288,15 +351,6 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     notes: 'Cotovelos fixos ao lado do tronco, supinação completa no topo.',
   },
   {
-    key: 'hammer_or_incline_curl',
-    name: 'Rosca Martelo ou Inclinada com Halteres',
-    muscleGroup: 'Bíceps',
-    secondaryMuscles: [],
-    equipment: 'Halter',
-    defaultWeightMode: 'per_side',
-    notes: 'Alternar ou escolher entre pegada neutra (martelo) ou banco a 45°.',
-  },
-  {
     key: 'barbell_curl',
     name: 'Rosca Direta com Barra',
     muscleGroup: 'Bíceps',
@@ -304,15 +358,6 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     equipment: 'Barra',
     defaultWeightMode: 'total',
     notes: 'Cotovelos fixos ao lado do tronco, sem roubar com lombar.',
-  },
-  {
-    key: 'cable_curl',
-    name: 'Rosca na Polia Baixa',
-    muscleGroup: 'Bíceps',
-    secondaryMuscles: [],
-    equipment: 'Polia',
-    defaultWeightMode: 'total',
-    notes: 'Excelente opção para drop-sets.',
   },
 
   // TRÍCEPS
@@ -324,6 +369,15 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     equipment: 'Polia',
     defaultWeightMode: 'total',
     notes: 'Ênfase na cabeça longa sob alongamento máximo.',
+  },
+  {
+    key: 'triceps_skullcrusher_cable',
+    name: 'Tríceps Testa no Cross',
+    muscleGroup: 'Tríceps',
+    secondaryMuscles: [],
+    equipment: 'Polia',
+    defaultWeightMode: 'total',
+    notes: 'Cotovelos estáveis; tensão constante na extensão.',
   },
   {
     key: 'triceps_rope',
@@ -352,7 +406,16 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
     secondaryMuscles: [],
     equipment: 'Máquina',
     defaultWeightMode: 'total',
-    notes: 'Pausa de 2s no alongamento inferior para eliminar efeito elástico.',
+    notes: 'Pausa de 1–2s no alongamento inferior para eliminar efeito elástico.',
+  },
+  {
+    key: 'standing_or_leg_calf_raise',
+    name: 'Panturrilha em Pé ou no Leg',
+    muscleGroup: 'Panturrilhas',
+    secondaryMuscles: [],
+    equipment: 'Máquina',
+    defaultWeightMode: 'total',
+    notes: 'Joelho estendido, enfatizando pausa de 1–2s no alongamento máximo.',
   },
   {
     key: 'seated_calf_machine',
@@ -366,22 +429,31 @@ export const PREPOPULATED_EXERCISES: readonly SeedExerciseDef[] = [
 
   // ABDÔMEN
   {
-    key: 'plank_abdominal',
-    name: 'Prancha Abdominal',
-    muscleGroup: 'Abdômen',
-    secondaryMuscles: [],
-    equipment: 'Peso Corporal',
-    defaultWeightMode: 'total',
-    notes: 'Isometria: registrar o tempo (45–60 seg) no campo de reps.',
-  },
-  {
-    key: 'cable_or_infra_abs',
-    name: 'Abdominal na Polia ou Infra',
+    key: 'cable_crunch',
+    name: 'Abdominal na Polia (Crunch)',
     muscleGroup: 'Abdômen',
     secondaryMuscles: [],
     equipment: 'Polia',
     defaultWeightMode: 'total',
-    notes: 'Flexionar a coluna torácica (polia) ou elevar a pelve (infra).',
+    notes: 'Flexionar a coluna torácica com carga progressiva (sem puxar com o quadril).',
+  },
+  {
+    key: 'leg_raise_or_side_plank',
+    name: 'Elevação de Pernas (Infra) ou Prancha Lateral',
+    muscleGroup: 'Abdômen',
+    secondaryMuscles: [],
+    equipment: 'Peso Corporal',
+    defaultWeightMode: 'total',
+    notes: 'Elevar a pelve sem balançar a lombar (12–15 reps) ou segurar 45s na prancha lateral.',
+  },
+  {
+    key: 'plank_frontal_lateral',
+    name: 'Prancha Frontal + Prancha Lateral',
+    muscleGroup: 'Abdômen',
+    secondaryMuscles: [],
+    equipment: 'Peso Corporal',
+    defaultWeightMode: 'total',
+    notes: 'Isometria: 2 séries frontal + 2 séries lateral. Registrar segundos no campo de reps.',
   },
 ] as const;
 
@@ -411,102 +483,255 @@ interface RoutineBlueprint {
 
 export const ROUTINE_BLUEPRINTS: readonly RoutineBlueprint[] = [
   {
-    key: 'lower_push_lower_pull_4x',
-    name: 'Inferior / Push / Pull — 4x',
+    key: 'upper_lower_powerbuilding_4x',
+    name: 'Upper / Lower 2x — Powerbuilding',
     splitType: 'Upper/Lower',
     description:
-      'Divisão padrão de 4 dias: Inferior 1 (Quadríceps e Glúteos), Push (Empurrar), Inferior 2 (Posteriores e Glúteos) e Pull (Puxar).',
+      'Divisão 4x (Seg: Upper A | Ter: Lower A | Qua: OFF | Qui: Upper B | Sex: Lower B) com pares alternados nos superiores para manter descanso real >2 min sem ficar parado. Mesociclos de 6 a 8 semanas com dupla progressão.',
     isActive: true,
     days: [
       {
-        key: 'inferior_1',
-        name: 'Inferior 1 (Quadríceps e Glúteos)',
-        focusMuscles: ['Quadríceps', 'Posteriores', 'Panturrilhas', 'Abdômen'],
-        estimatedMinutes: 60,
+        key: 'upper_a',
+        name: 'Upper A (Força Empurrar/Puxar + Braços)',
+        focusMuscles: ['Peito', 'Costas', 'Ombros', 'Bíceps', 'Tríceps'],
+        estimatedMinutes: 50,
         exercises: [
-          { exerciseKey: 'hack_squat', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
-          { exerciseKey: 'leg_press_45', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 90 },
-          { exerciseKey: 'leg_extension', targetSets: 3, repMin: 12, repMax: 15, restSeconds: 60 },
+          {
+            exerciseKey: 'incline_articulated_press',
+            targetSets: 3,
+            repMin: 6,
+            repMax: 8,
+            restSeconds: 60,
+            notes: 'Par 1A (alternar com Puxada). 1 série leve de 8 reps antes.',
+          },
+          {
+            exerciseKey: 'lat_pulldown',
+            targetSets: 3,
+            repMin: 6,
+            repMax: 8,
+            restSeconds: 60,
+            notes: 'Par 1B (alternar com Supino Inclinado).',
+          },
+          {
+            exerciseKey: 'flat_db_press',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 10,
+            restSeconds: 60,
+            notes: 'Par 2A (alternar com Remada Curvada).',
+          },
+          {
+            exerciseKey: 'barbell_row',
+            targetSets: 3,
+            repMin: 6,
+            repMax: 8,
+            restSeconds: 60,
+            notes: 'Par 2B (alternar com Supino Reto).',
+          },
+          {
+            exerciseKey: 'lateral_raise_db',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+          },
+          {
+            exerciseKey: 'triceps_overhead_cable',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 4A (alternar com Rosca Scott).',
+          },
+          {
+            exerciseKey: 'scott_barbell_curl',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 10,
+            restSeconds: 60,
+            notes: 'Par 4B (alternar com Tríceps Francês).',
+          },
+        ],
+      },
+      {
+        key: 'lower_a',
+        name: 'Lower A (Foco Quadríceps)',
+        focusMuscles: ['Quadríceps', 'Posteriores', 'Panturrilhas', 'Abdômen'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'hack_squat',
+            targetSets: 4,
+            repMin: 6,
+            repMax: 8,
+            restSeconds: 120,
+            notes: '1 série leve de 8 reps antes. Descanso de 2 min para subir carga.',
+          },
+          {
+            exerciseKey: 'leg_press_45',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 10,
+            restSeconds: 90,
+          },
+          {
+            exerciseKey: 'seated_leg_curl',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 75,
+            notes: 'Descanso sugerido: 60–90 seg.',
+          },
+          {
+            exerciseKey: 'leg_extension',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Reclinar o encosto (~40°) para maior estímulo do reto femoral.',
+          },
+          {
+            exerciseKey: 'hack_calf_raise',
+            targetSets: 4,
+            repMin: 10,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Pausa de 1s no alongamento embaixo.',
+          },
+          {
+            exerciseKey: 'cable_crunch',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 15,
+            restSeconds: 60,
+          },
+        ],
+      },
+      {
+        key: 'upper_b',
+        name: 'Upper B (Costas, Ombros & Hipertrofia)',
+        focusMuscles: ['Costas', 'Peito', 'Ombros', 'Bíceps', 'Tríceps'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'articulated_row',
+            targetSets: 3,
+            repMin: 6,
+            repMax: 8,
+            restSeconds: 60,
+            notes: 'Par 1A (alternar com Desenvolvimento). 1 série leve de 8 reps antes.',
+          },
+          {
+            exerciseKey: 'db_shoulder_press',
+            targetSets: 3,
+            repMin: 6,
+            repMax: 8,
+            restSeconds: 60,
+            notes: 'Par 1B (alternar com Remada Articulada).',
+          },
+          {
+            exerciseKey: 'pec_deck',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 2A (alternar com Serrote).',
+          },
+          {
+            exerciseKey: 'db_one_arm_row',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 10,
+            restSeconds: 60,
+            notes: 'Par 2B (alternar com Peck Deck).',
+          },
+          {
+            exerciseKey: 'face_pull_cable',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 3A (alternar com Elevação Lateral). Finalizar com rotação externa.',
+          },
+          {
+            exerciseKey: 'lateral_raise_db',
+            targetSets: 3,
+            repMin: 12,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Par 3B (alternar com Face Pull).',
+          },
+          {
+            exerciseKey: 'triceps_skullcrusher_cable',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 4A (alternar com Rosca Martelo na Polia).',
+          },
+          {
+            exerciseKey: 'hammer_cable_curl',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 12,
+            restSeconds: 60,
+            notes: 'Par 4B (alternar com Tríceps Testa no Cross).',
+          },
+        ],
+      },
+      {
+        key: 'lower_b',
+        name: 'Lower B (Foco Posteriores)',
+        focusMuscles: ['Posteriores', 'Quadríceps', 'Panturrilhas', 'Abdômen'],
+        estimatedMinutes: 50,
+        exercises: [
+          {
+            exerciseKey: 'stiff_barbell',
+            targetSets: 4,
+            repMin: 6,
+            repMax: 8,
+            restSeconds: 120,
+            notes: '1 série leve de 8 reps antes. Descanso de 2 min para subir carga.',
+          },
+          {
+            exerciseKey: 'db_lunge',
+            targetSets: 3,
+            repMin: 8,
+            repMax: 10,
+            restSeconds: 90,
+            notes: '8–10 reps cada lado (foco em quadríceps).',
+          },
           {
             exerciseKey: 'lying_leg_curl',
             targetSets: 3,
             repMin: 10,
             repMax: 12,
             restSeconds: 75,
-            notes: 'Descanso sugerido: 60–90 seg',
+            notes: 'Descanso sugerido: 60–90 seg.',
           },
           {
-            exerciseKey: 'hack_calf_raise',
-            targetSets: 3,
-            repMin: 12,
-            repMax: 15,
-            restSeconds: 60,
-            notes: 'Descanso sugerido: 45–60 seg',
-          },
-          {
-            exerciseKey: 'plank_abdominal',
-            targetSets: 3,
-            repMin: 45,
-            repMax: 60,
-            restSeconds: 45,
-            notes: 'Tempo isométrico em segundos (45–60 seg)',
-          },
-        ],
-      },
-      {
-        key: 'push',
-        name: 'Push — Empurrar (Peito, Ombros e Tríceps)',
-        focusMuscles: ['Peito', 'Ombros', 'Tríceps'],
-        estimatedMinutes: 60,
-        exercises: [
-          { exerciseKey: 'incline_db_press', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
-          { exerciseKey: 'pec_deck', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 90 },
-          { exerciseKey: 'db_shoulder_press', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 90 },
-          { exerciseKey: 'lateral_raise_db', targetSets: 4, repMin: 12, repMax: 15, restSeconds: 60 },
-          { exerciseKey: 'triceps_overhead_cable', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 60 },
-          { exerciseKey: 'triceps_rope', targetSets: 2, repMin: 10, repMax: 12, restSeconds: 60 },
-        ],
-      },
-      {
-        key: 'inferior_2',
-        name: 'Inferior 2 (Posteriores e Glúteos)',
-        focusMuscles: ['Posteriores', 'Quadríceps', 'Abdômen'],
-        estimatedMinutes: 60,
-        exercises: [
-          { exerciseKey: 'hip_thrust', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
-          { exerciseKey: 'stiff_barbell', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 90 },
-          {
-            exerciseKey: 'bulgarian_split_squat',
+            exerciseKey: 'hip_adduction',
             targetSets: 3,
             repMin: 10,
-            repMax: 10,
-            restSeconds: 90,
-            notes: '10 reps cada lado',
+            repMax: 12,
+            restSeconds: 60,
           },
-          { exerciseKey: 'seated_leg_curl', targetSets: 3, repMin: 12, repMax: 15, restSeconds: 60 },
           {
-            exerciseKey: 'hip_abduction',
+            exerciseKey: 'standing_or_leg_calf_raise',
+            targetSets: 3,
+            repMin: 10,
+            repMax: 15,
+            restSeconds: 60,
+            notes: 'Joelho estendido; pausa no alongamento.',
+          },
+          {
+            exerciseKey: 'leg_raise_or_side_plank',
             targetSets: 3,
             repMin: 12,
             repMax: 15,
             restSeconds: 60,
-            notes: 'Descanso sugerido: 45–60 seg',
+            notes: '12–15 reps (Infra) ou 45s na Prancha Lateral.',
           },
-          { exerciseKey: 'cable_or_infra_abs', targetSets: 3, repMin: 12, repMax: 15, restSeconds: 45 },
-        ],
-      },
-      {
-        key: 'pull',
-        name: 'Pull — Puxar (Costas, Deltoide Posterior e Bíceps)',
-        focusMuscles: ['Costas', 'Ombros', 'Bíceps'],
-        estimatedMinutes: 60,
-        exercises: [
-          { exerciseKey: 'lat_pulldown', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
-          { exerciseKey: 'articulated_or_barbell_row', targetSets: 3, repMin: 8, repMax: 10, restSeconds: 120 },
-          { exerciseKey: 'seated_cable_row', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 90 },
-          { exerciseKey: 'reverse_fly_or_face_pull', targetSets: 3, repMin: 12, repMax: 15, restSeconds: 60 },
-          { exerciseKey: 'db_bicep_curl', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 60 },
-          { exerciseKey: 'hammer_or_incline_curl', targetSets: 3, repMin: 10, repMax: 12, restSeconds: 60 },
         ],
       },
     ],
@@ -521,102 +746,45 @@ interface SeedSetSpec {
 }
 
 /**
- * Generates realistic 4-week set progressions for the default 4-day routine:
- * - incline_db_press: hits ceiling (3x10 at 28kg/lado) in Week 4 -> Progression Signal!
- * - db_bicep_curl: intentional 4-week plateau (14kg/lado x 11,10,10) -> Plateau Alert!
- * - hack_squat, hip_thrust, stiff_barbell, lat_pulldown: steady progressive overload.
+ * Generates realistic 4-week set progressions for the Upper/Lower 2x routine:
+ * - incline_articulated_press: hits ceiling (3x8 at 17.5kg/lado) in Week 4 -> Progression Signal!
+ * - scott_barbell_curl: intentional 4-week plateau (20kg x 9,8,8) -> Plateau Alert!
+ * - hack_squat, stiff_barbell, lat_pulldown, barbell_row: steady progressive overload.
  */
 function buildWeeklySets(exerciseKey: string, weekIdx: number): SeedSetSpec[] {
   switch (exerciseKey) {
-    // INFERIOR 1
-    case 'hack_squat': {
-      const weights = [90, 95, 100, 105];
-      const w = weights[weekIdx] ?? 100;
-      return [
-        { type: 'W', weight: 50, reps: 10, rpe: 5 },
-        { type: 'N', weight: w, reps: 9, rpe: 8 },
-        { type: 'N', weight: w, reps: 9, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 8 + (weekIdx === 3 ? 1 : 0), rpe: 9 },
-      ];
-    }
-
-    case 'leg_press_45': {
-      const w = 180 + weekIdx * 10;
-      return [
-        { type: 'N', weight: w, reps: 12, rpe: 8 },
-        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 10, rpe: 9 },
-      ];
-    }
-
-    case 'leg_extension': {
-      const w = 55 + weekIdx * 2.5;
-      return [
-        { type: 'N', weight: w, reps: 14, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 13, rpe: 9 },
-        { type: 'F', weight: w, reps: 12, rpe: 9.5 },
-      ];
-    }
-
-    case 'lying_leg_curl': {
-      const w = 42.5 + weekIdx * 2.5;
-      return [
-        { type: 'N', weight: w, reps: 12, rpe: 8 },
-        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 10, rpe: 9 },
-      ];
-    }
-
-    case 'hack_calf_raise': {
-      const w = 70 + weekIdx * 5;
-      return [
-        { type: 'N', weight: w, reps: 15, rpe: 8 },
-        { type: 'N', weight: w, reps: 14, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 13, rpe: 9 },
-      ];
-    }
-
-    case 'plank_abdominal': {
-      const secs = 45 + weekIdx * 5;
-      return [
-        { type: 'N', weight: 0, reps: Math.min(60, secs), rpe: 7.5 },
-        { type: 'N', weight: 0, reps: Math.min(60, secs), rpe: 8 },
-        { type: 'N', weight: 0, reps: Math.min(60, secs - 5), rpe: 8.5 },
-      ];
-    }
-
-    // PUSH
-    case 'incline_db_press': {
-      const weights = [24, 26, 28, 28];
+    // UPPER A
+    case 'incline_articulated_press': {
+      const weights = [15, 15, 17.5, 17.5];
       const repsByWeek: readonly [number, number, number][] = [
+        [7, 6, 6],
         [8, 8, 8],
-        [9, 8, 8],
-        [9, 9, 8],
-        [10, 10, 10], // Hits ceiling of 8-10 on all 3 working sets -> Progression Signal!
+        [7, 6, 6],
+        [8, 8, 8], // Hits ceiling of 6-8 on all 3 working sets -> Progression Signal!
       ];
-      const w = weights[weekIdx] ?? 28;
-      const r = repsByWeek[weekIdx] ?? [10, 10, 10];
+      const w = weights[weekIdx] ?? 17.5;
+      const r = repsByWeek[weekIdx] ?? [8, 8, 8];
       return [
-        { type: 'W', weight: 14, reps: 10, rpe: 5 },
+        { type: 'W', weight: 10, reps: 8, rpe: 5 },
         { type: 'N', weight: w, reps: r[0], rpe: 8 },
         { type: 'N', weight: w, reps: r[1], rpe: 8.5 },
         { type: 'N', weight: w, reps: r[2], rpe: 9 },
       ];
     }
 
-    case 'pec_deck': {
+    case 'lat_pulldown': {
       const w = 50 + weekIdx * 2.5;
       return [
-        { type: 'N', weight: w, reps: 12, rpe: 8 },
-        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
-        { type: 'F', weight: w, reps: 10, rpe: 9.5 },
+        { type: 'N', weight: w, reps: 8, rpe: 8 },
+        { type: 'N', weight: w, reps: 7, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 7, rpe: 9 },
       ];
     }
 
-    case 'db_shoulder_press': {
-      const weights = [18, 18, 20, 20];
+    case 'flat_db_press': {
+      const weights = [16, 16, 18, 18];
       const reps = [9, 10, 8, 9];
-      const w = weights[weekIdx] ?? 20;
+      const w = weights[weekIdx] ?? 18;
       const r = reps[weekIdx] ?? 9;
       return [
         { type: 'N', weight: w, reps: r, rpe: 8 },
@@ -625,16 +793,24 @@ function buildWeeklySets(exerciseKey: string, weekIdx: number): SeedSetSpec[] {
       ];
     }
 
-    case 'lateral_raise_db': {
-      const weights = [10, 10, 12, 12];
-      const reps = [14, 15, 13, 14];
-      const w = weights[weekIdx] ?? 12;
-      const r = reps[weekIdx] ?? 14;
+    case 'barbell_row': {
+      const w = 45 + weekIdx * 2.5;
       return [
-        { type: 'N', weight: w, reps: r, rpe: 8 },
+        { type: 'N', weight: w, reps: 8, rpe: 8 },
+        { type: 'N', weight: w, reps: 7, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 7, rpe: 9 },
+      ];
+    }
+
+    case 'lateral_raise_db': {
+      const weights = [8, 8, 10, 10];
+      const reps = [14, 15, 12, 13];
+      const w = weights[weekIdx] ?? 10;
+      const r = reps[weekIdx] ?? 13;
+      return [
         { type: 'N', weight: w, reps: r, rpe: 8.5 },
-        { type: 'N', weight: w, reps: r - 1, rpe: 9 },
-        { type: 'D', weight: Math.max(8, w - 2), reps: 14, rpe: 9.5 },
+        { type: 'N', weight: w, reps: r, rpe: 9 },
+        { type: 'F', weight: w, reps: Math.max(12, r - 1), rpe: 9.5 },
       ];
     }
 
@@ -647,47 +823,185 @@ function buildWeeklySets(exerciseKey: string, weekIdx: number): SeedSetSpec[] {
       ];
     }
 
-    case 'triceps_rope': {
-      const w = 25 + weekIdx * 2.5;
+    case 'scott_barbell_curl': {
+      // Intentional 4-week PLATEAU: exact same 20kg x (9, 8, 8) every week!
       return [
-        { type: 'N', weight: w, reps: 12, rpe: 8.5 },
-        { type: 'D', weight: Math.max(15, w - 5), reps: 11, rpe: 9.5 },
+        { type: 'N', weight: 20, reps: 9, rpe: 8.5 },
+        { type: 'N', weight: 20, reps: 8, rpe: 9 },
+        { type: 'F', weight: 20, reps: 8, rpe: 9.5 },
       ];
     }
 
-    // INFERIOR 2
-    case 'hip_thrust': {
-      const w = 100 + weekIdx * 10;
+    // LOWER A
+    case 'hack_squat': {
+      const weights = [70, 75, 80, 85];
+      const w = weights[weekIdx] ?? 80;
       return [
-        { type: 'W', weight: 60, reps: 10, rpe: 5 },
-        { type: 'N', weight: w, reps: 10, rpe: 8 },
-        { type: 'N', weight: w, reps: 9, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 9, rpe: 9 },
+        { type: 'W', weight: 40, reps: 8, rpe: 5 },
+        { type: 'N', weight: w, reps: 8, rpe: 8 },
+        { type: 'N', weight: w, reps: 7, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 7, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 6 + (weekIdx === 3 ? 1 : 0), rpe: 9 },
       ];
     }
 
-    case 'stiff_barbell': {
-      const w = 75 + weekIdx * 5;
+    case 'leg_press_45': {
+      const w = 140 + weekIdx * 10;
       return [
-        { type: 'W', weight: 40, reps: 10, rpe: 5 },
         { type: 'N', weight: w, reps: 10, rpe: 8 },
         { type: 'N', weight: w, reps: 9, rpe: 8.5 },
         { type: 'N', weight: w, reps: 8, rpe: 9 },
       ];
     }
 
-    case 'bulgarian_split_squat': {
-      const weights = [14, 16, 16, 18];
-      const w = weights[weekIdx] ?? 16;
+    case 'seated_leg_curl': {
+      const w = 45 + weekIdx * 2.5;
       return [
-        { type: 'N', weight: w, reps: 10, rpe: 8 },
-        { type: 'N', weight: w, reps: 10, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 9, rpe: 9 },
+        { type: 'N', weight: w, reps: 12, rpe: 8 },
+        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 10, rpe: 9 },
       ];
     }
 
-    case 'seated_leg_curl': {
-      const w = 47.5 + weekIdx * 2.5;
+    case 'leg_extension': {
+      const w = 50 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 12, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 11, rpe: 9 },
+        { type: 'F', weight: w, reps: 10, rpe: 9.5 },
+      ];
+    }
+
+    case 'hack_calf_raise': {
+      const w = 65 + weekIdx * 5;
+      return [
+        { type: 'N', weight: w, reps: 14, rpe: 8 },
+        { type: 'N', weight: w, reps: 13, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 12, rpe: 9 },
+        { type: 'N', weight: w, reps: 12, rpe: 9 },
+      ];
+    }
+
+    case 'cable_crunch': {
+      const w = 30 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 15, rpe: 8 },
+        { type: 'N', weight: w, reps: 14, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 13, rpe: 9 },
+      ];
+    }
+
+    // UPPER B
+    case 'articulated_row': {
+      const w = 22.5 + weekIdx * 2.5;
+      return [
+        { type: 'W', weight: 12.5, reps: 8, rpe: 5 },
+        { type: 'N', weight: w, reps: 8, rpe: 8 },
+        { type: 'N', weight: w, reps: 7, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 7, rpe: 9 },
+      ];
+    }
+
+    case 'db_shoulder_press': {
+      const weights = [14, 14, 16, 16];
+      const reps = [7, 8, 6, 7];
+      const w = weights[weekIdx] ?? 16;
+      const r = reps[weekIdx] ?? 7;
+      return [
+        { type: 'N', weight: w, reps: r, rpe: 8 },
+        { type: 'N', weight: w, reps: r, rpe: 8.5 },
+        { type: 'N', weight: w, reps: Math.max(6, r - 1), rpe: 9 },
+      ];
+    }
+
+    case 'pec_deck': {
+      const w = 45 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 12, rpe: 8 },
+        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
+        { type: 'F', weight: w, reps: 10, rpe: 9.5 },
+      ];
+    }
+
+    case 'db_one_arm_row': {
+      const weights = [18, 18, 20, 20];
+      const w = weights[weekIdx] ?? 20;
+      return [
+        { type: 'N', weight: w, reps: 10, rpe: 8 },
+        { type: 'N', weight: w, reps: 9, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 8, rpe: 9 },
+      ];
+    }
+
+    case 'face_pull_cable': {
+      const w = 20 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 15, rpe: 8 },
+        { type: 'N', weight: w, reps: 14, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 13, rpe: 9 },
+      ];
+    }
+
+    case 'triceps_skullcrusher_cable': {
+      const w = 25 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 12, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 11, rpe: 9 },
+        { type: 'F', weight: w, reps: 10, rpe: 9.5 },
+      ];
+    }
+
+    case 'hammer_cable_curl': {
+      const w = 22.5 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 12, rpe: 8 },
+        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 10, rpe: 9 },
+      ];
+    }
+
+    // LOWER B
+    case 'stiff_barbell': {
+      const w = 60 + weekIdx * 5;
+      return [
+        { type: 'W', weight: 30, reps: 8, rpe: 5 },
+        { type: 'N', weight: w, reps: 8, rpe: 8 },
+        { type: 'N', weight: w, reps: 7, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 7, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 6, rpe: 9 },
+      ];
+    }
+
+    case 'db_lunge': {
+      const weights = [12, 12, 14, 14];
+      const w = weights[weekIdx] ?? 14;
+      return [
+        { type: 'N', weight: w, reps: 10, rpe: 8 },
+        { type: 'N', weight: w, reps: 9, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 8, rpe: 9 },
+      ];
+    }
+
+    case 'lying_leg_curl': {
+      const w = 40 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 12, rpe: 8 },
+        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 10, rpe: 9 },
+      ];
+    }
+
+    case 'hip_adduction': {
+      const w = 40 + weekIdx * 2.5;
+      return [
+        { type: 'N', weight: w, reps: 12, rpe: 8 },
+        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
+        { type: 'N', weight: w, reps: 10, rpe: 9 },
+      ];
+    }
+
+    case 'standing_or_leg_calf_raise': {
+      const w = 60 + weekIdx * 5;
       return [
         { type: 'N', weight: w, reps: 14, rpe: 8 },
         { type: 'N', weight: w, reps: 13, rpe: 8.5 },
@@ -695,78 +1009,12 @@ function buildWeeklySets(exerciseKey: string, weekIdx: number): SeedSetSpec[] {
       ];
     }
 
-    case 'hip_abduction': {
-      const w = 55 + weekIdx * 5;
+    case 'leg_raise_or_side_plank': {
+      const reps = 12 + weekIdx;
       return [
-        { type: 'N', weight: w, reps: 15, rpe: 8 },
-        { type: 'N', weight: w, reps: 14, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 13, rpe: 9 },
-      ];
-    }
-
-    case 'cable_or_infra_abs': {
-      const w = 32.5 + weekIdx * 2.5;
-      return [
-        { type: 'N', weight: w, reps: 15, rpe: 8 },
-        { type: 'N', weight: w, reps: 14, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 13, rpe: 9 },
-      ];
-    }
-
-    // PULL
-    case 'lat_pulldown': {
-      const w = 55 + weekIdx * 2.5;
-      return [
-        { type: 'W', weight: 35, reps: 10, rpe: 5 },
-        { type: 'N', weight: w, reps: 10, rpe: 8 },
-        { type: 'N', weight: w, reps: 9, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 9, rpe: 9 },
-      ];
-    }
-
-    case 'articulated_or_barbell_row': {
-      const w = 60 + weekIdx * 2.5;
-      return [
-        { type: 'N', weight: w, reps: 10, rpe: 8 },
-        { type: 'N', weight: w, reps: 9, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 8, rpe: 9 },
-      ];
-    }
-
-    case 'seated_cable_row': {
-      const w = 52.5 + weekIdx * 2.5;
-      return [
-        { type: 'N', weight: w, reps: 12, rpe: 8 },
-        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 10, rpe: 9 },
-      ];
-    }
-
-    case 'reverse_fly_or_face_pull': {
-      const w = 22.5 + weekIdx * 2.5;
-      return [
-        { type: 'N', weight: w, reps: 15, rpe: 8 },
-        { type: 'N', weight: w, reps: 14, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 13, rpe: 9 },
-      ];
-    }
-
-    case 'db_bicep_curl': {
-      // Intentional 4-week PLATEAU: exact same 14kg/lado x (11, 10, 10) every week!
-      return [
-        { type: 'N', weight: 14, reps: 11, rpe: 8.5 },
-        { type: 'N', weight: 14, reps: 10, rpe: 9 },
-        { type: 'F', weight: 14, reps: 10, rpe: 9.5 },
-      ];
-    }
-
-    case 'hammer_or_incline_curl': {
-      const weights = [12, 12, 14, 14];
-      const w = weights[weekIdx] ?? 14;
-      return [
-        { type: 'N', weight: w, reps: 12, rpe: 8 },
-        { type: 'N', weight: w, reps: 11, rpe: 8.5 },
-        { type: 'N', weight: w, reps: 10, rpe: 9 },
+        { type: 'N', weight: 0, reps: Math.min(15, reps), rpe: 8 },
+        { type: 'N', weight: 0, reps: Math.min(15, reps), rpe: 8.5 },
+        { type: 'N', weight: 0, reps: Math.min(15, reps - 1), rpe: 9 },
       ];
     }
 
@@ -922,7 +1170,7 @@ export async function runRealisticSeed(
   const exerciseMap = await ensurePrepopulatedExercises(db);
 
   await db.withTransactionAsync(async () => {
-    // 1. Insert ONLY the default routine (Inferior 1 / Push / Inferior 2 / Pull)
+    // 1. Insert ONLY the default routine (Upper A / Lower A / Upper B / Lower B)
     const routineIdByKey = new Map<string, string>();
     const routineDayIdByKey = new Map<string, string>();
     const routineExerciseIdByPair = new Map<string, string>();
@@ -1017,7 +1265,7 @@ export async function runRealisticSeed(
       [27, 25, 23, 22], // Week 1
       [20, 18, 16, 15], // Week 2
       [13, 11, 9, 8],   // Week 3
-      [6, 4, 2, 1],     // Week 4 (last was Pull yesterday -> Next Workout = Inferior 1!)
+      [6, 4, 2, 1],     // Week 4 (last was Lower B yesterday -> Next Workout = Upper A!)
     ];
 
     if (defaultRoutine) {
@@ -1032,7 +1280,7 @@ export async function runRealisticSeed(
 
           const dayId = routineDayIdByKey.get(dayBlueprint.key) ?? null;
           const startDate = daysAgoDate(daysAgo, 18, 15);
-          const durationSec = (54 + ((weekIdx * 3 + dayIdx * 4) % 14)) * 60;
+          const durationSec = (46 + ((weekIdx * 3 + dayIdx * 4) % 10)) * 60;
           const finishDate = new Date(startDate.getTime() + durationSec * 1000);
           const startIso = startDate.toISOString();
           const finishIso = finishDate.toISOString();
@@ -1056,8 +1304,8 @@ export async function runRealisticSeed(
               startIso,
               finishIso,
               durationSec,
-              weekIdx === 3 && dayIdx === 1
-                ? 'Supino inclinado sólido — pronto para subir carga!'
+              weekIdx === 3 && dayIdx === 0
+                ? 'Supino inclinado articulado bateu 3x8 — pronto para subir carga!'
                 : '',
               startIso,
               finishIso,
@@ -1136,7 +1384,7 @@ export async function runRealisticSeed(
               }
 
               const completedAt = new Date(
-                startDate.getTime() + (exOrder * 8 + sIdx * 2 + 2) * 60 * 1000
+                startDate.getTime() + (exOrder * 7 + sIdx * 2 + 2) * 60 * 1000
               ).toISOString();
 
               await db.runAsync(
@@ -1182,11 +1430,11 @@ export async function runRealisticSeed(
 
     // 3. Insert 5 Weekly Body Measurements
     const bodyEntries = [
-      { daysAgo: 28, weight: 78.4, bf: 15.2, arm: 37.2, chest: 102.0, waist: 83.0, thigh: 58.5, notes: 'Início do mesociclo de hipertrofia' },
-      { daysAgo: 21, weight: 78.7, bf: 15.0, arm: 37.4, chest: 102.4, waist: 82.8, thigh: 58.8, notes: 'Boa recuperação e sono regular' },
-      { daysAgo: 14, weight: 79.0, bf: 14.8, arm: 37.6, chest: 102.8, waist: 82.5, thigh: 59.0, notes: 'Aumento leve de carboidratos pré-treino' },
-      { daysAgo: 7, weight: 79.3, bf: 14.6, arm: 37.8, chest: 103.1, waist: 82.3, thigh: 59.3, notes: 'Cargas subindo com consistência' },
-      { daysAgo: 1, weight: 79.6, bf: 14.5, arm: 38.0, chest: 103.4, waist: 82.1, thigh: 59.6, notes: 'Ganho limpo, cintura reduzindo' },
+      { daysAgo: 28, weight: 69.2, bf: 14.5, arm: 34.5, chest: 96.0, waist: 78.5, thigh: 54.0, notes: 'Início do bloco Upper/Lower Powerbuilding' },
+      { daysAgo: 21, weight: 69.5, bf: 14.5, arm: 34.7, chest: 96.4, waist: 78.5, thigh: 54.2, notes: 'Adaptação aos pares alternados' },
+      { daysAgo: 14, weight: 69.8, bf: 14.4, arm: 34.9, chest: 96.8, waist: 78.6, thigh: 54.5, notes: 'Cargas subindo no Hack e Stiff' },
+      { daysAgo: 7, weight: 70.1, bf: 14.4, arm: 35.1, chest: 97.1, waist: 78.6, thigh: 54.8, notes: 'Boa recuperação entre sessões' },
+      { daysAgo: 1, weight: 70.4, bf: 14.3, arm: 35.3, chest: 97.5, waist: 78.7, thigh: 55.0, notes: 'Ganho limpo e progressão constante' },
     ];
 
     for (const entry of bodyEntries) {
@@ -1224,14 +1472,14 @@ export async function runRealisticSeed(
       calories: number;
       notes: string;
     }> = [
-      { daysAgo: 26, modality: 'Caminhada Inclinada', duration: 30, distance: 2.8, intensity: 'Leve', calories: 230, notes: 'Inclinação 10%, velocidade 5.5 km/h' },
-      { daysAgo: 24, modality: 'Bike', duration: 25, distance: 10.5, intensity: 'Moderada', calories: 260, notes: 'Zona 2 constante' },
-      { daysAgo: 19, modality: 'Corrida', duration: 28, distance: 4.5, intensity: 'Moderada', calories: 330, notes: 'Ritmo confortável ao ar livre' },
-      { daysAgo: 17, modality: 'Escada', duration: 20, distance: null, intensity: 'Alta', calories: 270, notes: 'Simulador de escada pós-Push' },
-      { daysAgo: 12, modality: 'Caminhada Inclinada', duration: 35, distance: 3.2, intensity: 'Leve', calories: 275, notes: 'Recuperação ativa' },
-      { daysAgo: 10, modality: 'HIIT', duration: 18, distance: null, intensity: 'Alta', calories: 250, notes: '10 tiros de 30s na bike' },
-      { daysAgo: 5, modality: 'Bike', duration: 30, distance: 12.8, intensity: 'Moderada', calories: 310, notes: 'Cardio Zona 2 estável' },
-      { daysAgo: 3, modality: 'Caminhada Inclinada', duration: 30, distance: 2.9, intensity: 'Leve', calories: 240, notes: 'Inclinação 12%, pós-Inferior' },
+      { daysAgo: 26, modality: 'Caminhada Inclinada', duration: 25, distance: 2.3, intensity: 'Leve', calories: 195, notes: 'Inclinação 10%, pós-Upper' },
+      { daysAgo: 24, modality: 'Bike', duration: 20, distance: 8.5, intensity: 'Moderada', calories: 210, notes: 'Zona 2 constante' },
+      { daysAgo: 19, modality: 'Corrida', duration: 25, distance: 4.0, intensity: 'Moderada', calories: 290, notes: 'Ritmo confortável' },
+      { daysAgo: 17, modality: 'Escada', duration: 15, distance: null, intensity: 'Alta', calories: 210, notes: 'Simulador pós-Upper' },
+      { daysAgo: 12, modality: 'Caminhada Inclinada', duration: 30, distance: 2.8, intensity: 'Leve', calories: 230, notes: 'Recuperação ativa no dia OFF' },
+      { daysAgo: 10, modality: 'HIIT', duration: 15, distance: null, intensity: 'Alta', calories: 220, notes: '8 tiros de 30s na bike' },
+      { daysAgo: 5, modality: 'Bike', duration: 25, distance: 10.2, intensity: 'Moderada', calories: 260, notes: 'Cardio Zona 2 estável' },
+      { daysAgo: 3, modality: 'Caminhada Inclinada', duration: 25, distance: 2.4, intensity: 'Leve', calories: 200, notes: 'Inclinação 12%' },
     ];
 
     for (const c of cardioEntries) {
@@ -1262,7 +1510,7 @@ export async function runRealisticSeed(
       [createdTs]
     );
     await db.runAsync(
-      `INSERT OR REPLACE INTO schema_meta (key, value) VALUES ('default_routine_v3', ?)`,
+      `INSERT OR REPLACE INTO schema_meta (key, value) VALUES ('default_routine_v5', ?)`,
       [createdTs]
     );
   });

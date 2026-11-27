@@ -2,6 +2,8 @@ import React from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
+import { Ionicons } from '@expo/vector-icons';
 import {
   ActiveWorkoutProvider,
   AppProvider,
@@ -77,6 +79,19 @@ function RootContent(): React.JSX.Element {
 }
 
 export default function App(): React.JSX.Element {
+  const [fontsLoaded] = useFonts({
+    ...Ionicons.font,
+    Ionicons: require('@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
+    );
+  }
+
   return (
     <SafeAreaProvider>
       <AppProvider>

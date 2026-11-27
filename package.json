@@ -10,7 +10,8 @@
     "web": "expo start --web",
     "typecheck": "tsc --noEmit",
     "test:logic": "node --experimental-strip-types scripts/verify-logic.ts",
-    "build:apk": "npx eas-cli build -p android --profile preview"
+    "build:apk": "npx eas-cli build -p android --profile preview",
+    "update:app": "npx eas-cli update --channel preview --auto"
   },
   "dependencies": {
     "@expo/metro-runtime": "~58.0.17",
@@ -28,6 +29,7 @@
     "expo-sharing": "~58.0.23",
     "expo-sqlite": "~58.0.18",
     "expo-status-bar": "~58.0.5",
+    "expo-updates": "~58.0.23",
     "fbjs": "^3.0.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",
